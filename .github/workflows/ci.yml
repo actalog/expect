@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  - pull_request
+  - push
+  - workflow_dispatch
+
+jobs:
+  node-ci:
+    name: Node CI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: gabrielrufino/node-ci@v3
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Should not fail
+        uses: ./
+        with:
+          type: 'regex'
+          pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+          value: 'contato@gabrielrufino.com'
+      - name: Should fail
+        uses: ./
+        with:
+          type: 'regex'
+          pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+          value: '12345678'

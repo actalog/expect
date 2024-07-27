@@ -1,0 +1,16 @@
+name: Expect
+
+inputs:
+  type:
+    description: 'Validation type'
+    required: true
+  value:
+    description: 'Value to validate'
+    required: true
+  pattern:
+    description: 'RegExp pattern'
+    required: false
+
+runs:
+  using: 'node20'
+  main: 'src/index.js'
