@@ -2,7 +2,7 @@ name: Expect
 
 inputs:
   type:
-    description: 'Validation type'
+    description: 'Which validation to use'
     required: true
   value:
     description: 'Value to validate'
