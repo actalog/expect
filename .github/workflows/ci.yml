@@ -16,11 +16,7 @@ jobs:
     name: Tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
       - uses: actions/checkout@v4
-      - run: npm ci
       - name: Should not fail
         uses: ./
         with:
