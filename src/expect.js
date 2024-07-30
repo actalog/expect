@@ -12,7 +12,7 @@ exports.expect = function (value, type) {
     throw new UnexpectedTypeError()
   }
 
-  const params = validator.params.reduce((param, accumulator) => {
+  const params = validator.params.reduce((accumulator, param) => {
     const value = core.getInput(param)
 
     if (!value) {
