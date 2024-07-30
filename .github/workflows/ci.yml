@@ -19,7 +19,6 @@ jobs:
       - uses: actions/checkout@v4
       # TODO: Write tests for unexpected types
       # Regex
-      - name: Should 
       - name: Should not fail
         uses: ./
         with:
