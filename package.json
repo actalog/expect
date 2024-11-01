@@ -1,14 +1,18 @@
 {
   "name": "@gabrielrufino/expect-action",
   "private": true,
-  "version": "1.1.0",
-  "main": "src/index.js",
-  "scripts": {},
-  "keywords": [],
+  "version": "1.1.1",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "ncc build src/index.js -o dist"
+  },
   "author": "Gabriel Rufino <contato@gabrielrufino.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@actions/core": "^1.10.1",
+    "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.2"
   }
 }
