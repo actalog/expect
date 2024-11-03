@@ -1,4 +1,9 @@
-name: Expect
+name: Expect - Validates data across the pipeline
+description: A set of validators that can be used to validate inputs, secrets, outputs, and more.
+author: Gabriel Rufino
+branding:
+  icon: check-square
+  color: green
 
 inputs:
   type:
@@ -13,4 +18,4 @@ inputs:
 
 runs:
   using: 'node20'
-  main: 'src/index.js'
+  main: 'dist/index.js'
