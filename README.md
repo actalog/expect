@@ -1,4 +1,4 @@
-# Expect action
+# Expect
 
 ```yml
 name: Validation action
@@ -9,7 +9,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: gabrielrufino/expect-action@v1
+      - uses: actalog/expect@v1
         with:
           type: 'regex'
           value: 'example@example.com'
