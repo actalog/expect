@@ -1,4 +1,4 @@
-exports.RegexValidator = class {
+export class RegexValidator {
   static params = [
     'pattern'
   ]

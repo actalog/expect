@@ -1,11 +1,11 @@
-const core = require('@actions/core')
+import * as core from '@actions/core'
 
-const { RequiredParamError } = require('./errors/required-param.error')
-const { UnexpectedTypeError } = require('./errors/unexpected-type.error')
-const { UnexpectedValueError } = require('./errors/unexpected-value.error')
-const { validators } = require('./validators')
+import { RequiredParamError } from './errors/required-param.error'
+import { UnexpectedTypeError } from './errors/unexpected-type.error'
+import { UnexpectedValueError } from './errors/unexpected-value.error'
+import { validators } from './validators'
 
-exports.expect = function (value, type) {
+export function expect (value, type) {
   const validator = validators[type]
 
   if (!validator) {
@@ -16,7 +16,7 @@ exports.expect = function (value, type) {
     const value = core.getInput(param)
 
     if (!value) {
-      throw new RequiredParamError()
+      throw new RequiredParamError(value)
     }
 
     return {

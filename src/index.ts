@@ -1,6 +1,6 @@
-const core = require('@actions/core')
+import * as core from '@actions/core'
 
-const { expect } = require('./expect')
+import { expect } from './expect'
 
 try {
   const type = core.getInput('type')
