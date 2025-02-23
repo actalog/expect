@@ -1,9 +1,11 @@
-export class RegexValidator {
-  static params = [
+import { Validator } from '../interfaces/validator.interface'
+
+export class RegexValidator implements Validator {
+  public readonly params = [
     'pattern'
   ]
 
-  validate (value, params) {
+  public validate (value: string, params: Record<string, string>): boolean {
     return new RegExp(params.pattern)
       .test(value)
   }
