@@ -7,15 +7,15 @@ branding:
 
 inputs:
   type:
-    description: 'Which validation to use'
+    description: Which validation to use
     required: true
   value:
-    description: 'Value to validate'
+    description: Value to validate
     required: true
   pattern:
-    description: 'RegExp pattern'
+    description: RegExp pattern
     required: false
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: node20
+  main: dist/index.js

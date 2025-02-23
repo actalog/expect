@@ -5,7 +5,7 @@ import { UnexpectedTypeError } from './errors/unexpected-type.error'
 import { UnexpectedValueError } from './errors/unexpected-value.error'
 import { validators } from './validators'
 
-export function expect (value, type) {
+export function expect(value, type) {
   const Validator = validators[type]
 
   if (!Validator) {
@@ -23,7 +23,7 @@ export function expect (value, type) {
 
     return {
       ...accumulator,
-      [param]: value
+      [param]: value,
     }
   }, {})
 

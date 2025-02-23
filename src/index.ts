@@ -7,6 +7,7 @@ try {
   const value = core.getInput('value')
 
   expect(value, type)
-} catch (error) {
-  core.setFailed(error.message);
+}
+catch (error) {
+  core.setFailed(error.message)
 }
