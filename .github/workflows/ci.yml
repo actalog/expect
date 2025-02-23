@@ -22,13 +22,13 @@ jobs:
       - name: Should not fail
         uses: ./
         with:
-          type: 'regex'
+          type: regex
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-          value: 'contato@gabrielrufino.com'
+          value: contato@gabrielrufino.com
       - name: Should fail
         uses: ./
         with:
-          type: 'regex'
+          type: regex
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
           value: '12345678'
         continue-on-error: true
