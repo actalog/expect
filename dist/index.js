@@ -27584,19 +27584,21 @@ class UnexpectedValueError extends Error {
 
 ;// CONCATENATED MODULE: ./src/validators/regex.validator.ts
 class RegexValidator {
+    constructor() {
+        this.params = [
+            'pattern',
+        ];
+    }
     validate(value, params) {
         return new RegExp(params.pattern)
             .test(value);
     }
 }
-RegexValidator.params = [
-    'pattern'
-];
 
 ;// CONCATENATED MODULE: ./src/validators/index.ts
 
 const validators = {
-    regex: RegexValidator
+    regex: RegexValidator,
 };
 
 ;// CONCATENATED MODULE: ./src/expect.ts
@@ -27606,10 +27608,11 @@ const validators = {
 
 
 function expect(value, type) {
-    const validator = validators[type];
-    if (!validator) {
+    const Validator = validators[type];
+    if (!Validator) {
         throw new UnexpectedTypeError();
     }
+    const validator = new Validator();
     const params = validator.params.reduce((accumulator, param) => {
         const value = core.getInput(param);
         if (!value) {
@@ -27617,8 +27620,7 @@ function expect(value, type) {
         }
         return Object.assign(Object.assign({}, accumulator), { [param]: value });
     }, {});
-    const valid = new validator()
-        .validate(value, params);
+    const valid = validator.validate(value, params);
     if (!valid) {
         throw new UnexpectedValueError();
     }
