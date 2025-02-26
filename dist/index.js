@@ -11535,6 +11535,14 @@ const { isUint8Array, isArrayBuffer } = __nccwpck_require__(8253)
 const { File: UndiciFile } = __nccwpck_require__(3041)
 const { parseMIMEType, serializeAMimeType } = __nccwpck_require__(4322)
 
+let random
+try {
+  const crypto = __nccwpck_require__(7598)
+  random = (max) => crypto.randomInt(0, max)
+} catch {
+  random = (max) => Math.floor(Math.random(max))
+}
+
 let ReadableStream = globalThis.ReadableStream
 
 /** @type {globalThis['File']} */
@@ -11620,7 +11628,7 @@ function extractBody (object, keepalive = false) {
     // Set source to a copy of the bytes held by object.
     source = new Uint8Array(object.buffer.slice(object.byteOffset, object.byteOffset + object.byteLength))
   } else if (util.isFormDataLike(object)) {
-    const boundary = `----formdata-undici-0${`${Math.floor(Math.random() * 1e11)}`.padStart(11, '0')}`
+    const boundary = `----formdata-undici-0${`${random(1e11)}`.padStart(11, '0')}`
     const prefix = `--${boundary}\r\nContent-Disposition: form-data`
 
     /*! formdata-polyfill. MIT License. Jimmy Wärting <https://jimmy.warting.se/opensource> */
@@ -25635,115 +25643,6 @@ module.exports = {
 
 /***/ }),
 
-/***/ 7704:
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.RequiredParamError = class extends Error {
-  /**
-   * @param {String} param 
-   */
-  constructor (param) {
-    super(`Param ${param} is required`)
-  }
-}
-
-
-/***/ }),
-
-/***/ 2639:
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.UnexpectedTypeError = class extends Error {
-  constructor() {
-    super('Unexpected type')
-  }
-}
-
-
-/***/ }),
-
-/***/ 7334:
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.UnexpectedValueError = class extends Error {
-  constructor() {
-    super('Unexpected value')
-  }
-}
-  
-
-/***/ }),
-
-/***/ 8140:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-const core = __nccwpck_require__(7484)
-
-const { RequiredParamError } = __nccwpck_require__(7704)
-const { UnexpectedTypeError } = __nccwpck_require__(2639)
-const { UnexpectedValueError } = __nccwpck_require__(7334)
-const { validators } = __nccwpck_require__(81)
-
-exports.expect = function (value, type) {
-  const validator = validators[type]
-
-  if (!validator) {
-    throw new UnexpectedTypeError()
-  }
-
-  const params = validator.params.reduce((accumulator, param) => {
-    const value = core.getInput(param)
-
-    if (!value) {
-      throw new RequiredParamError()
-    }
-
-    return {
-      ...accumulator,
-      [param]: value
-    }
-  }, {})
-
-  const valid = new validator()
-    .validate(value, params)
-
-  if (!valid) {
-    throw new UnexpectedValueError()
-  }
-}
-
-
-/***/ }),
-
-/***/ 81:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-const { RegexValidator } =  __nccwpck_require__(9862)
-
-exports.validators = {
-  regex: RegexValidator
-}
-
-
-/***/ }),
-
-/***/ 9862:
-/***/ ((__unused_webpack_module, exports) => {
-
-exports.RegexValidator = class {
-  static params = [
-    'pattern'
-  ]
-
-  validate (value, params) {
-    return new RegExp(params.pattern)
-      .test(value)
-  }
-}
-
-
-/***/ }),
-
 /***/ 2613:
 /***/ ((module) => {
 
@@ -25845,6 +25744,14 @@ module.exports = require("https");
 
 "use strict";
 module.exports = require("net");
+
+/***/ }),
+
+/***/ 7598:
+/***/ ((module) => {
+
+"use strict";
+module.exports = require("node:crypto");
 
 /***/ }),
 
@@ -27648,18 +27555,90 @@ module.exports = parseParams
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-const core = __nccwpck_require__(7484)
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
 
-const { expect } = __nccwpck_require__(8140)
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(7484);
+;// CONCATENATED MODULE: ./src/errors/required-param.error.ts
+class RequiredParamError extends Error {
+    constructor(param) {
+        super(`Param ${param} is required`);
+    }
+}
+
+;// CONCATENATED MODULE: ./src/errors/unexpected-type.error.ts
+class UnexpectedTypeError extends Error {
+    constructor() {
+        super('Unexpected type');
+    }
+}
+
+;// CONCATENATED MODULE: ./src/errors/unexpected-value.error.ts
+class UnexpectedValueError extends Error {
+    constructor() {
+        super('Unexpected value');
+    }
+}
+
+;// CONCATENATED MODULE: ./src/validators/regex.validator.ts
+class RegexValidator {
+    constructor() {
+        this.params = [
+            'pattern',
+        ];
+    }
+    validate(value, params) {
+        return new RegExp(params.pattern)
+            .test(value);
+    }
+}
+
+;// CONCATENATED MODULE: ./src/validators/index.ts
+
+const validators = {
+    regex: RegexValidator,
+};
+
+;// CONCATENATED MODULE: ./src/expect.ts
+
+
+
+
+
+function expect(value, type) {
+    const Validator = validators[type];
+    if (!Validator) {
+        throw new UnexpectedTypeError();
+    }
+    const validator = new Validator();
+    const params = validator.params.reduce((accumulator, param) => {
+        const value = core.getInput(param);
+        if (!value) {
+            throw new RequiredParamError(value);
+        }
+        return Object.assign(Object.assign({}, accumulator), { [param]: value });
+    }, {});
+    const valid = validator.validate(value, params);
+    if (!valid) {
+        throw new UnexpectedValueError();
+    }
+}
+
+;// CONCATENATED MODULE: ./src/index.ts
+
 
 try {
-  const type = core.getInput('type')
-  const value = core.getInput('value')
-
-  expect(value, type)
-} catch (error) {
-  core.setFailed(error.message);
+    const type = core.getInput('type');
+    const value = core.getInput('value');
+    expect(value, type);
 }
+catch (error) {
+    core.setFailed(error.message);
+}
+
+})();
 
 module.exports = __webpack_exports__;
 /******/ })()

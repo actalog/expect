@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actalog/expect@v1
         with:
-          type: 'regex'
-          value: 'example@example.com'
+          type: regex
+          value: example@example.com
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 ```
