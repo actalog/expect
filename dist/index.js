@@ -27582,6 +27582,21 @@ class UnexpectedValueError extends Error {
     }
 }
 
+;// CONCATENATED MODULE: ./src/validators/enum.validator.ts
+class EnumValidator {
+    constructor() {
+        this.params = [
+            'options',
+        ];
+    }
+    validate(value, params) {
+        return params
+            .options
+            .split(',')
+            .includes(value);
+    }
+}
+
 ;// CONCATENATED MODULE: ./src/validators/regex.validator.ts
 class RegexValidator {
     constructor() {
@@ -27597,7 +27612,9 @@ class RegexValidator {
 
 ;// CONCATENATED MODULE: ./src/validators/index.ts
 
+
 const validators = {
+    enum: EnumValidator,
     regex: RegexValidator,
 };
 
