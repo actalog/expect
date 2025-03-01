@@ -1,5 +1,8 @@
 # Expect
 
+[![CI](https://github.com/actalog/expect/actions/workflows/ci.yml/badge.svg)](https://github.com/actalog/expect/actions/workflows/ci.yml)
+[![CD](https://github.com/actalog/expect/actions/workflows/cd.yml/badge.svg)](https://github.com/actalog/expect/actions/workflows/cd.yml)
+
 ```yml
 name: Validation action
 
