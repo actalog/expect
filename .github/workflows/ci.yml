@@ -32,3 +32,21 @@ jobs:
           pattern: '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
           value: '12345678'
         continue-on-error: true
+  test-enum:
+    name: Test enum validator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Should not fail
+        uses: ./
+        with:
+          type: enum
+          options: a,b,c
+          value: a
+      - name: Should fail
+        uses: ./
+        with:
+          type: enum
+          options: a,b,c
+          value: d
+        continue-on-error: true
