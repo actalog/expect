@@ -5,7 +5,7 @@ import { UnexpectedTypeError } from './errors/unexpected-type.error'
 import { UnexpectedValueError } from './errors/unexpected-value.error'
 import { validators } from './validators'
 
-export function expect(value, type) {
+export function expect(value: string, type: string): void {
   const Validator = validators[type]
 
   if (!Validator) {
@@ -18,7 +18,7 @@ export function expect(value, type) {
     const value = core.getInput(param)
 
     if (!value) {
-      throw new RequiredParamError(value)
+      throw new RequiredParamError(param)
     }
 
     return {
