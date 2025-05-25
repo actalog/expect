@@ -27633,7 +27633,7 @@ function expect(value, type) {
     const params = validator.params.reduce((accumulator, param) => {
         const value = core.getInput(param);
         if (!value) {
-            throw new RequiredParamError(value);
+            throw new RequiredParamError(param);
         }
         return Object.assign(Object.assign({}, accumulator), { [param]: value });
     }, {});
