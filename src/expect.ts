@@ -18,7 +18,7 @@ export function expect(value: string, type: string): void {
     const value = core.getInput(param)
 
     if (!value) {
-      throw new RequiredParamError(value)
+      throw new RequiredParamError(param)
     }
 
     return {
