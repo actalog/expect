@@ -6,4 +6,8 @@ export default defineConfig({
   minify: true,
   clean: true,
   outExtensions: () => ({ js: '.js' }),
+  deps: {
+    alwaysBundle: ['@actions/core', '@actions/github'],
+    onlyBundle: false,
+  },
 })
