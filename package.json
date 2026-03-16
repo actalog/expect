@@ -6,8 +6,8 @@
   "license": "UNLICENSED",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsup",
-    "build:watch": "npm run build -- --watch",
+    "build": "tsdown",
+    "build:watch": "tsdown --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.19.0",
-    "eslint": "^9.33.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5.9.2"
+    "eslint": "^9.39.2",
+    "tsdown": "^0.21.3",
+    "typescript": "^5.9.3"
   }
 }
