@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.19.0",
-    "eslint": "^9.39.2",
-    "tsdown": "^0.21.3",
+    "eslint": "^9.39.4",
+    "tsdown": "^0.21.10",
     "typescript": "^5.9.3"
   }
 }
